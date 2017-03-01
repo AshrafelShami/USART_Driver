@@ -27,17 +27,17 @@ void USART_Init(Struct_USART USART_Config){
 	UCSRC &=~(1 << URSEL);
 	
 	switch(USART_Config.Operation_Mode){
-		case Synchronous				: UCSRC &=~(1U << UMSEL); break;
+		case Synchronous		: UCSRC &=~(1U << UMSEL); break;
 		case Asynchronous_Normal_Speed	: UCSRC |= (1U << UMSEL); UCSRA &=~(1U << U2X); break;
 		case Asynchronous_Double_Speed	: UCSRC |= (1U << UMSEL); UCSRA |= (1U << U2X); break;
-		default							: UCSRC &=~(1U << UMSEL); break;
+		default				: UCSRC &=~(1U << UMSEL); break;
 	}
 	
 	switch(USART_Config.Duplex_Select){
 		case TX_Mode	: UCSRB |= (1U << TXEN); break;
 		case RX_Mode	: UCSRB |= (1U << RXEN); break;
 		case TX_RX_Mode : UCSRB |= (1U << TXEN)|(1U << RXEN); break;
-		default			: UCSRB |= (1U << TXEN); break; 
+		default		: UCSRB |= (1U << TXEN); break; 
 	}
 	
 	switch(USART_Config.Character_Size){
@@ -46,33 +46,33 @@ void USART_Init(Struct_USART USART_Config){
 		case Char_7_Bits : UCSRB &=~(1U << UCSZ2); UCSRC |= (1U << UCSZ1); UCSRC &=~(1U << UCSZ0); break;
 		case Char_8_Bits : UCSRB &=~(1U << UCSZ2); UCSRC |= (1U << UCSZ1); UCSRC |= (1U << UCSZ0); break;
 		case Char_9_Bits : UCSRB |= (1U << UCSZ2); UCSRC |= (1U << UCSZ1); UCSRC |= (1U << UCSZ0); break;
-		default			 : UCSRB &=~(1U << UCSZ2); UCSRC |= (1U << UCSZ1); UCSRC |= (1U << UCSZ0); break;
+		default		 : UCSRB &=~(1U << UCSZ2); UCSRC |= (1U << UCSZ1); UCSRC |= (1U << UCSZ0); break;
 	}
 	
 	switch(USART_Config.Parity_Mode){
 		case No_Parity	: UCSRC &=~(1U << UPM1); UCSRC &=~(1U << UPM0); break;
 		case Even_Parity: UCSRC |= (1U << UPM1); UCSRC &=~(1U << UPM0); break;
 		case Odd_Parity	: UCSRC |= (1U << UPM1); UCSRC |= (1U << UPM0); break;
-		default			: UCSRC &=~(1U << UPM1); UCSRC &=~(1U << UPM0); break;
+		default		: UCSRC &=~(1U << UPM1); UCSRC &=~(1U << UPM0); break;
 	}
 	
 	switch(USART_Config.Stop_Bit){
 		case One_Bit	: UCSRC &=~(1U << USBS); break;
 		case Two_Bits	: UCSRC |= (1U << USBS); break;
-		default			: UCSRC &=~(1U << USBS); break;
+		default		: UCSRC &=~(1U << USBS); break;
 	}
 
 	switch(USART_Config.Clock_Polirity){
 		case TX_Falling_Edge	: UCSRC |= (1U << UCPOL); break;
-		case TX_Rising_Edge		: UCSRC &=~(1U << UCPOL); break;
-		default					: UCSRC &=~(1U << UCPOL); break;
+		case TX_Rising_Edge	: UCSRC &=~(1U << UCPOL); break;
+		default			: UCSRC &=~(1U << UCPOL); break;
 	}
 	
 	switch(USART_Config.interrupt_Select){
-		case RX_Complete_Int_Enable		: UCSRA |= (1U << RXCIE); break;
-		case TX_Complete_Int_Enable		: UCSRA |= (1U << TXCIE); break;
+		case RX_Complete_Int_Enable	: UCSRA |= (1U << RXCIE); break;
+		case TX_Complete_Int_Enable	: UCSRA |= (1U << TXCIE); break;
 		case Data_Reg_Empty_Int_Enable	: UCSRA |= (1U << UDRIE); break;
-		default							: UCSRA &=~((1U << RXCIE)|(1U << TXCIE)|(1U << UDRIE)); break;
+		default				: UCSRA &=~((1U << RXCIE)|(1U << TXCIE)|(1U << UDRIE)); break;
 	}
 }
 
@@ -112,7 +112,7 @@ Struct_Status USART_Rx_Error_Detection( void ){
 ********************************************************************************************/
 u8 USART_Receive( void ){
 	while (!(UCSRA & (1U << RXC)));		/*	Wait for the data to be received			*/
-	return UDR;							/*	Return the received data in the UDR			*/
+	return UDR;				/*	Return the received data in the UDR			*/
 }
 
 /********************************************************************************************
@@ -137,7 +137,7 @@ u16 USART_Receive_9bit( void ){
 ********************************************************************************************/
 void USART_Transmit( u8 Data ){
 	while (!(UCSRA & (1U << UDRE)));	/*	Wait for the Buffer register to be Free.(1)	*/	
-	UDR = Data;							/*	Send the Data to the Data register.			*/
+	UDR = Data;				/*	Send the Data to the Data register.			*/
 }
 
 /********************************************************************************************
