@@ -11,7 +11,7 @@ int main(){
 	USART_Init_Struct.Stop_Bit			=	One_Bit;
 	USART_Init(USART_Init_Struct);
 	
-	USART_Transmit_String("Hello From the other side.");
+	USART_Transmit_String("Hello World!");
 	
 	while (1){
 		
