@@ -69,10 +69,10 @@ void USART_Init(Struct_USART USART_Config){
 	}
 	
 	switch(USART_Config.interrupt_Select){
-		case RX_Complete_Int_Enable	: UCSRA |= (1U << RXCIE); break;
-		case TX_Complete_Int_Enable	: UCSRA |= (1U << TXCIE); break;
-		case Data_Reg_Empty_Int_Enable	: UCSRA |= (1U << UDRIE); break;
-		default				: UCSRA &=~((1U << RXCIE)|(1U << TXCIE)|(1U << UDRIE)); break;
+		case RX_Complete_Int_Enable	: UCSRB |= (1U << RXCIE); break;
+		case TX_Complete_Int_Enable	: UCSRB |= (1U << TXCIE); break;
+		case Data_Reg_Empty_Int_Enable	: UCSRB |= (1U << UDRIE); break;
+		default				: UCSRB &=~((1U << RXCIE)|(1U << TXCIE)|(1U << UDRIE)); break;
 	}
 }
 
